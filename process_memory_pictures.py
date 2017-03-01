@@ -13,7 +13,7 @@ if __name__ == "__main__":
     thread = threading.Thread(target=pmpp.extract_images, args=(sys.argv[1:],))
     thread.start()
     sleeptime_milliseconds = 200
-    pmpf = process_memory_pictures_frontend(image_queue, sleeptime_milliseconds, fullscreen=False)
+    pmpf = process_memory_pictures_frontend(image_queue, sleeptime_milliseconds, fullscreen=True)
     pmpf.run()
     print("Frontend has ended. Requesting worker thread termination...")
     termination_request_queue.put(None)
