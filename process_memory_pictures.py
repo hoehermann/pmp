@@ -7,13 +7,14 @@ from process_memory_pictures_tk import process_memory_pictures_frontend
 from process_memory_pictures_producer import process_memory_pictures_producer
 
 if __name__ == "__main__":
+    fullscreen = True
+    sleeptime_milliseconds = 200
     image_queue = Queue.Queue(1)
     termination_request_queue = Queue.Queue()
     pmpp = process_memory_pictures_producer(image_queue, termination_request_queue)
     thread = threading.Thread(target=pmpp.extract_images, args=(sys.argv[1:],))
     thread.start()
-    sleeptime_milliseconds = 200
-    pmpf = process_memory_pictures_frontend(image_queue, sleeptime_milliseconds, fullscreen=True)
+    pmpf = process_memory_pictures_frontend(image_queue, sleeptime_milliseconds, fullscreen)
     pmpf.run()
     print("Frontend has ended. Requesting worker thread termination...")
     termination_request_queue.put(None)
